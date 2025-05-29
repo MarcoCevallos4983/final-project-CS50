@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: mi-app-flask
+    name: seismic-risk-prediction
     env: python
     buildCommand: ""
     startCommand: gunicorn app:app
