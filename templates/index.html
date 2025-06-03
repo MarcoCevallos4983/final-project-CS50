@@ -6,7 +6,24 @@ Login
 
 {% block body %}
 
-    <h1>Hello app</h1>
-    <h2>Example</h2>
+<nav id="sidebar">
+  {% if session.get("user_id") %}
+    <a href="/logout" class="btn btn-outline-primary btn-sm">Logout</a>
+  {% else %}
+      <a href="/login" class="btn btn-outline-primary btn-sm">Login</a>
+      <a href="/register" class="btn btn-outline-primary btn-sm">Register</a>
+  {% endif %}
+</nav>
+
+
+
+<section class="seismic-section">
+  <div class="overlay"></div>
+  <div class="content">
+    <h1>Seismic Hazard and Risk in Ecuador</h1>
+    <p>Sign up to look for seismic parameters in your region.</p>
+  </div>
+
+</section>
 
 {% endblock %}
