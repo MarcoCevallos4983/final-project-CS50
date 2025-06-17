@@ -113,20 +113,42 @@ def login():
 def dashboard():
     """Principal dashabord showed to users who have logged in"""
     
-    #Create a map
-    map = folium.Map(location = [-1.8312, -78.1834], zoom_start=7,
-                     tiles="CartoDB positron",
-                     dragging=False,
-                     zoom_control=False,
-                     scrollWheelZoom=False,
-                     doubleClickZoom=False,
-                     touchZoom=False)
+    if request.method == "POST":
+        coorx = request.form.get("coorx")
+        coory = request.form.get("coory")
+        
+        if coorx and coory:
+            try:
+                coorx = float(coorx)
+                coory= float(coory)
+                #Map based on the user input
+                map = folium.Map(location = [coorx, coory], zoom_start=12)
+                map_path = os.path.join("templates", "map.html")
+                map.save(map_path)
+                return render_template("dashboard.html")
+            except ValueError:
+                flash("Coordinates are not valid")
+                return redirect("/dashboard")
+        else:
+            flash("Please insert coordinates")
+            return redirect("/dashboard")
 
-    #Save the map in a html file.
-    map_path = os.path.join("templates", "map.html")
-    map.save(map_path)
+        
+    
+    else:
+        #Create a map
+        map = folium.Map(location = [-1.8312, -78.1834], zoom_start=7,
+                        dragging=False,
+                        zoom_control=False,
+                        scrollWheelZoom=False,
+                        doubleClickZoom=False,
+                        touchZoom=False)
 
-    return render_template("dashboard.html")
+        #Save the map in a html file.
+        map_path = os.path.join("templates", "map.html")
+        map.save(map_path)
+
+        return render_template("dashboard.html")
 
 
 

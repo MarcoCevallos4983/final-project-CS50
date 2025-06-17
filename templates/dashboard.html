@@ -5,6 +5,29 @@ Dashboard
 {% block body %}
 
     <h1>Dashboard</h1>
+    <form method="POST" action="">
+        
+        <div>
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="coorx" placeholder="Coordinate X" type="number" step="any">
+        </div>
+
+        <div>
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="coory" placeholder="Coordinate Y" type="number" step="any">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
     <div class="container">
         {% include "map.html" %}
     </div>
